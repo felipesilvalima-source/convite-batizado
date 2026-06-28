@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Convite de Batizado</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat:wght@300;400;600&display=swap');
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: linear-gradient(135deg, #f4f3ef 0%, #e6e5e0 50%, #f4f3ef 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        body::before, body::after {
+            content: '';
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            background: rgba(223, 186, 107, 0.15);
+            filter: blur(80px);
+            z-index: 0;
+        }
+        body::before { top: -50px; left: -50px; }
+        body::after { bottom: -50px; right: -50px; }
+
+        .convite-container {
+            background-color: #fdfbf7;
+            background-image: 
+                linear-gradient(rgba(223, 186, 107, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(223, 186, 107, 0.03) 1px, transparent 1px),
+                linear-gradient(to bottom, #ffffff, #fdfbf7);
+            background-size: 4px 4px, 4px 4px, 100% 100%;
+            
+            width: 100%;
+            max-width: 650px;
+            border: 2px solid #dfba6b; 
+            border-radius: 15px;
+            box-shadow: 0 15px 35px rgba(139, 115, 58, 0.15);
+            overflow: hidden;
+            position: relative;
+            text-align: center;
+            padding: 50px 40px;
+            display: flex;
+            flex-direction: column;
+            z-index: 1;
+        }
+
+        .convite-container::before {
+            content: '';
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            right: 15px;
+            bottom: 15px;
+            border: 1px solid #dfba6b;
+            border-radius: 12px;
+            pointer-events: none;
+            opacity: 0.4;
+        }
+
+        .convite-container::after {
+            content: '';
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            right: 20px;
+            bottom: 20px;
+            border: 1px dotted #dfba6b;
+            border-radius: 10px;
+            pointer-events: none;
+            opacity: 0.6;
+        }
+
+        .divino-icone {
+            font-size: 2.8rem;
+            color: #dfba6b;
+            margin-bottom: 15px;
+            z-index: 2;
+            display: inline-block;
+            animation: voar 3s ease-in-out infinite; 
+        }
+
+        @keyframes voar {
+            0% { transform: translateY(0px) scale(1); }
+            50% { transform: translateY(-8px) scale(1.05) rotate(2deg); }
+            100% { transform: translateY(0px) scale(1); }
+        }
+
+        .nav-menu {
+            display: flex;
+            justify-content: space-around;
+            background-color: rgba(252, 250, 242, 0.8);
+            backdrop-filter: blur(4px);
+            border: 1px solid #dfba6b;
+            padding: 8px;
+            border-radius: 30px;
+            margin-bottom: 35px;
+            z-index: 2;
+        }
+
+        .nav-btn {
+            background: none;
+            border: none;
+            color: #8b733a;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            padding: 10px 20px;
+            border-radius: 20px;
+            transition: 0.3s;
+        }
+
+        .nav-btn.active {
+            background-color: #dfba6b;
+            color: white;
+        }
+
+        .page {
+            display: none;
+            z-index: 2;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        h1 {
+            font-family: 'Great Vibes', cursive;
+            color: #dfba6b;
+            font-size: 4.2rem;
+            margin-bottom: 8px;
+            font-weight: 400;
+            text-shadow: 1px 1px 0px rgba(255,255,255,0.8);
+        }
+
+        h2 {
+            color: #4a4a4a;
+            font-size: 1.3rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-bottom: 25px;
+            font-weight: 300;
+        }
+
+        .chamada {
+            font-size: 1.1rem;
+            color: #555;
+            line-height: 1.7;
+            margin-bottom: 30px;
+            font-weight: 300;
+        }
+
+        .info-box {
+            background-color: rgba(255, 255, 255, 0.6);
+            border-top: 1px solid rgba(223, 186, 107, 0.2);
+            border-bottom: 1px solid rgba(223, 186, 107, 0.2);
+            padding: 25px 15px;
+            margin-bottom: 30px;
+            text-align: left;
+        }
+
+        .info-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 18px;
+            font-size: 1.1rem;
+        }
+
+        .info-item:last-child { margin-bottom: 0; }
+        .icon { font-size: 1.3rem; margin-right: 15px; color: #dfba6b; }
+        .info-item strong { color: #2b2b2b; font-weight: 600; margin-right: 5px; }
+
+        .form-group {
+            text-align: left;
+            margin-bottom: 22px;
+            transition: opacity 0.3s ease;
+        }
+
+        /* Estilo para quando os campos forem desabilitados */
+        .form-group.disabled {
+            opacity: 0.4;
+            pointer-events: none;
+        }
+
+        label {
+            display: block;
+            color: #4a4a4a;
+            font-weight: 600;
+            margin-bottom: 8px;
+            font-size: 0.95rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 14px;
+            border: 1px solid #dcdcdc;
+            border-radius: 6px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.05rem;
+            color: #4a4a4a;
+            outline: none;
+            background-color: rgba(255, 255, 255, 0.9);
+            transition: 0.2s;
+        }
+
+        input:focus, select:focus {
+            border-color: #dfba6b;
+            background-color: #ffffff;
+        }
+
+        .btn-enviar {
+            background-color: #dfba6b;
+            color: white;
+            border: none;
+            padding: 16px 20px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.05rem;
+            font-weight: bold;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            border-radius: 30px;
+            cursor: pointer;
+            width: 100%;
+            transition: 0.2s;
+            margin-top: 15px;
+            box-shadow: 0 4px 10px rgba(223, 186, 107, 0.3);
+        }
+
+        .btn-enviar:hover {
+            background-color: #cb9f4c;
+            box-shadow: 0 6px 14px rgba(223, 186, 107, 0.4);
+        }
+
+        .lista-presentes {
+            list-style: none;
+            text-align: left;
+        }
+
+        .presente-item {
+            background: rgba(255, 255, 255, 0.7);
+            padding: 16px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-left: 4px solid #dfba6b;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.02);
+        }
+
+        .sugestao-txt {
+            font-size: 1.05rem;
+            color: #4a4a4a;
+        }
+
+        .status-badge {
+            background-color: #fcfaf2;
+            color: #8b733a;
+            border: 1px solid #dfba6b;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .ramo-detalhe {
+            color: #dfba6b;
+            font-size: 1.3rem;
+            margin-top: 20px;
+            opacity: 0.7;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="convite-container">
+        
+        <div class="divino-icone">🕊️</div>
+
+        <!-- Menu de Abas -->
+        <nav class="nav-menu">
+            <button class="nav-btn active" onclick="mudarPagina('home', this)">O Convite</button>
+            <button class="nav-btn" onclick="mudarPagina('confirmar', this)">Confirmar Presença</button>
+            <button class="nav-btn" onclick="mudarPagina('presentes', this)">Lembranças</button>
+        </nav>
+
+        <!-- ================= PÁGINA 1: CONVITE ================= -->
+        <div id="home" class="page active">
+            <h1>Batizado</h1>
+            <h2> THEO HENRIQUE</h2>
+
+            <p class="chamada">
+                "Guiado por Deus, abençoado pelos padrinhos e protegido pelos anjos." <br><br>
+                Com muita alegria, convidamos você e sua família para testemunharem o primeiro sacramento da vida do nosso pequeno.
+            </p>
+
+            <div class="info-box">
+                <div class="info-item">
+                    <span class="icon">📅</span>
+                    <div><strong>Data:</strong> [Dia da Semana], [DD/MM/AAAA]</div>
+                </div>
+                <div class="info-item">
+                    <span class="icon">⏰</span>
+                    <div><strong>Horário:</strong> [Horário]h</div>
+                </div>
+                <div class="info-item">
+                    <span class="icon">⛪</span>
+                    <div><strong>Igreja:</strong> MATRIZ<br><small style="color:#888">[Endereço da Igreja]</small></div>
+                </div>
+                <div class="info-item">
+                    <span class="icon">✨</span>
+                    <div><strong>Recepção:</strong> Após a cerimônia, celebraremos no [Local da Recepção/Restaurante]</div>
+                </div>
+            </div>
+
+            <div class="ramo-detalhe">🌿 ⚜️ 🌿</div>
+        </div>
+
+        <!-- ================= PÁGINA 2: CONFIRMAÇÃO ================= -->
+        <div id="confirmar" class="page">
+            <h2>Confirmar Presença</h2>
+            <p class="chamada">Para nos ajudar a planejar este momento tão especial, por favor confirme sua presença até o dia [DD/MM].</p>
+            
+            <form id="formConfirmacao" onsubmit="enviarConfirmacao(event)">
+                <div class="form-group">
+                    <label for="nome">Nome Completo / Família:</label>
+                    <input type="text" id="nome" placeholder="Ex: Família Silva" required>
+                </div>
+
+                <!-- Nova opção para Escolha de Comparecimento -->
+                <div class="form-group">
+                    <label for="statusPresenca">Você poderá comparecer?</label>
+                    <select id="statusPresenca" onchange="alternarCamposQuantidade(this.value)">
+                        <option value="sim">Sim, com certeza! ✨</option>
+                        <option value="nao">Infelizmente não poderei ir 🤍</option>
+                    </select>
+                </div>
+                
+                <div class="form-group" id="grupoAdultos">
+                    <label for="quantidade">Quantidade de Adultos:</label>
+                    <select id="quantidade">
+                        <option value="1">1 Pessoa</option>
+                        <option value="2">2 Pessoas</option>
+                        <option value="3">3 Pessoas</option>
+                        <option value="4">4 Pessoas</option>
+                        <option value="5">5 ou mais Pessoas</option>
+                    </select>
+                </div>
+
+                <div class="form-group" id="grupoCriancas">
+                    <label for="criancas">Quantidade de Crianças:</label>
+                    <input type="number" id="criancas" min="0" value="0">
+                </div>
+
+                <button type="submit" class="btn-enviar">Enviar Resposta via WhatsApp</button>
+            </form>
+        </div>
+
+        <!-- ================= PÁGINA 3: SUGESTÕES DE PRESENTES ================= -->
+        <div id="presentes" class="page">
+            <h2>Sugestões de Mimos</h2>
+            <p class="chamada">Sua presença é o nosso maior presente! Mas se você deseja agraciar THEO, deixamos algumas sugestões do que ele está precisando nesta fase:</p>
+            
+            <ul class="lista-presentes">
+                <li class="presente-item">
+                    <span class="sugestao-txt">👶 Fralda Descartável (Tamanho G)</span>
+                    <span class="status-badge">Mimos</span>
+                </li>
+                <li class="presente-item">
+                    <span class="sugestao-txt">👕 Roupinha de Passeio (6 a 12 meses)</span>
+                    <span class="status-badge">Sugestão</span>
+                </li>
+                <li class="presente-item">
+                    <span class="sugestao-txt">📚 Livrinho de histórias infantis/bíblicas</span>
+                    <span class="status-badge">Lembrança</span>
+                </li>
+                <li class="presente-item">
+                    <span class="sugestao-txt">🧸 Brinquedo educativo/pedagógico</span>
+                    <span class="status-badge">Opção</span>
+                </li>
+            </ul>
+
+            <p class="chamada" style="margin-top: 25px; font-size: 0.95rem; font-style: italic;">
+                Agradecemos imensamente por todo o carinho com nossa família.
+            </p>
+            <div class="ramo-detalhe">🌿 ⚜️ 🌿</div>
+        </div>
+
+    </div>
+
+    <script>
+        function mudarPagina(idPagina, botaoClicado) {
+            const paginas = document.querySelectorAll('.page');
+            paginas.forEach(p => p.classList.remove('active'));
+
+            const botoes = document.querySelectorAll('.nav-btn');
+            botoes.forEach(b => b.classList.remove('active'));
+
+            document.getElementById(idPagina).classList.add('active');
+            botaoClicado.classList.add('active');
+        }
+
+        // Função para desabilitar/habilitar campos baseada na escolha do convidado
+        function alternarCamposQuantidade(valor) {
+            const grupoAdultos = document.getElementById('grupoAdultos');
+            const grupoCriancas = document.getElementById('grupoCriancas');
+            const inputAdultos = document.getElementById('quantidade');
+            const inputCriancas = document.getElementById('criancas');
+
+            if (valor === 'nao') {
+                grupoAdultos.classList.add('disabled');
+                grupoCriancas.classList.add('disabled');
+                inputAdultos.disabled = true;
+                inputCriancas.disabled = true;
+            } else {
+                grupoAdultos.classList.remove('disabled');
+                grupoCriancas.classList.remove('disabled');
+                inputAdultos.disabled = false;
+                inputCriancas.disabled = false;
+            }
+        }
+
+        function enviarConfirmacao(event) {
+            event.preventDefault();
+            
+            const nome = document.getElementById('nome').value;
+            const statusPresenca = document.getElementById('statusPresenca').value;
+            const adultos = document.getElementById('quantidade').value;
+            const criancas = document.getElementById('criancas').value;
+            
+            const meuNumero = "5500999999999"; 
+            let mensagem = "";
+
+            if (statusPresenca === 'sim') {
+                mensagem = `🕊️ *Confirmação de Presença - Batizado* 🕊️\n\n` +
+                           `👤 *Nome:* ${nome}\n` +
+                           `✨ *Presença:* Confirmada! Vamos com certeza!\n` +
+                           `👨 *Adultos:* ${adultos}\n` +
+                           `👶 *Crianças:* ${criancas}\n\n` +
+                           `Estamos ansiosos por esse momento!`;
+            } else {
+                mensagem = `🕊️ *Aviso de Ausência - Batizado* 🕊️\n\n` +
+                           `👤 *Nome:* ${nome}\n` +
+                           `🤍 *Presença:* Infelizmente não poderemos comparecer.\n\n` +
+                           `Agradecemos imensamente o convite e desejamos um lindo batizado abençoado!`;
+            }
+                             
+            const linkWhatsapp = `https://api.whatsapp.com/send?phone=${+5581998963764}&text=${encodeURIComponent(mensagem)}`;
+            
+            window.open(linkWhatsapp, '_blank');
+            
+            // Reseta o formulário e volta os campos ao normal
+            document.getElementById('formConfirmacao').reset();
+            alternarCamposQuantidade('sim');
+            mudarPagina('home', document.querySelectorAll('.nav-btn')[0]);
+        }
+    </script>
+</body>
+</html>
