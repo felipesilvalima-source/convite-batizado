@@ -193,7 +193,6 @@
             transition: opacity 0.3s ease;
         }
 
-        /* Estilo para quando os campos forem desabilitados */
         .form-group.disabled {
             opacity: 0.4;
             pointer-events: none;
@@ -250,6 +249,7 @@
             box-shadow: 0 6px 14px rgba(223, 186, 107, 0.4);
         }
 
+        /* Lista de Presentes Otimizada */
         .lista-presentes {
             list-style: none;
             text-align: left;
@@ -265,11 +265,13 @@
             align-items: center;
             border-left: 4px solid #dfba6b;
             box-shadow: 0 2px 5px rgba(0,0,0,0.02);
+            gap: 15px; /* Garante que o texto não cole na medalha */
         }
 
         .sugestao-txt {
             font-size: 1.05rem;
             color: #4a4a4a;
+            line-height: 1.4;
         }
 
         .status-badge {
@@ -280,6 +282,7 @@
             border-radius: 20px;
             font-size: 0.8rem;
             font-weight: 600;
+            white-space: nowrap; /* Impede a palavra de quebrar feio */
         }
 
         .ramo-detalhe {
@@ -287,6 +290,32 @@
             font-size: 1.3rem;
             margin-top: 20px;
             opacity: 0.7;
+        }
+
+        /* ================= REGRAS EXCLUSIVAS PARA CELULAR ================= */
+        @media (max-width: 480px) {
+            .convite-container {
+                padding: 35px 20px; /* Reduz o espaçamento das bordas no celular */
+            }
+
+            h1 {
+                font-size: 3.2rem; /* Diminui levemente o título principal */
+            }
+
+            .nav-btn {
+                font-size: 0.85rem; /* Ajusta os botões do menu para não espremer */
+                padding: 8px 12px;
+            }
+
+            .presente-item {
+                flex-direction: column; /* Joga a medalha para baixo se faltar espaço */
+                align-items: flex-start;
+                gap: 8px;
+            }
+
+            .status-badge {
+                align-self: flex-end; /* Alinha a medalha à direita abaixo do texto */
+            }
         }
     </style>
 </head>
@@ -306,7 +335,7 @@
         <!-- ================= PÁGINA 1: CONVITE ================= -->
         <div id="home" class="page active">
             <h1>Batizado</h1>
-            <h2> THEO HENRIQUE</h2>
+            <h2>THEO HENRIQUE</h2>
 
             <p class="chamada">
                 "Guiado por Deus, abençoado pelos padrinhos e protegido pelos anjos." <br><br>
@@ -324,7 +353,7 @@
                 </div>
                 <div class="info-item">
                     <span class="icon">⛪</span>
-                    <div><strong>Igreja:</strong> MATRIZ<br><small style="color:#888">[Endereço da Igreja]</small></div>
+                    <div><strong>Igreja:</strong> [Nome da Paróquia/Igreja]<br><small style="color:#888">[Endereço da Igreja]</small></div>
                 </div>
                 <div class="info-item">
                     <span class="icon">✨</span>
@@ -346,7 +375,6 @@
                     <input type="text" id="nome" placeholder="Ex: Família Silva" required>
                 </div>
 
-                <!-- Nova opção para Escolha de Comparecimento -->
                 <div class="form-group">
                     <label for="statusPresenca">Você poderá comparecer?</label>
                     <select id="statusPresenca" onchange="alternarCamposQuantidade(this.value)">
@@ -378,7 +406,7 @@
         <!-- ================= PÁGINA 3: SUGESTÕES DE PRESENTES ================= -->
         <div id="presentes" class="page">
             <h2>Sugestões de Mimos</h2>
-            <p class="chamada">Sua presença é o nosso maior presente! Mas se você deseja agraciar THEO, deixamos algumas sugestões do que ele está precisando nesta fase:</p>
+            <p class="chamada">Sua presença é o nosso maior presente! Mas se você deseja agraciar o [Nome do Bebê], deixamos algumas sugestões do que ele está precisando nesta fase:</p>
             
             <ul class="lista-presentes">
                 <li class="presente-item">
@@ -419,7 +447,6 @@
             botaoClicado.classList.add('active');
         }
 
-        // Função para desabilitar/habilitar campos baseada na escolha do convidado
         function alternarCamposQuantidade(valor) {
             const grupoAdultos = document.getElementById('grupoAdultos');
             const grupoCriancas = document.getElementById('grupoCriancas');
@@ -464,11 +491,10 @@
                            `Agradecemos imensamente o convite e desejamos um lindo batizado abençoado!`;
             }
                              
-            const linkWhatsapp = `https://api.whatsapp.com/send?phone=${+5581998963764}&text=${encodeURIComponent(mensagem)}`;
+            const linkWhatsapp = `https://api.whatsapp.com/send?phone=${+5581999761529}&text=${encodeURIComponent(mensagem)}`;
             
             window.open(linkWhatsapp, '_blank');
             
-            // Reseta o formulário e volta os campos ao normal
             document.getElementById('formConfirmacao').reset();
             alternarCamposQuantidade('sim');
             mudarPagina('home', document.querySelectorAll('.nav-btn')[0]);
